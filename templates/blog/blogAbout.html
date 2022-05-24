@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}About{% endblock title %}
+{% block bodycontent %}<div class="row">
+    {% load static %}
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="card m-5" >
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{%static 'about us.jpg'%}" class="img-fluid rounded-start h-100" >
+              </div>
+              <div class="col-md-8">
+                <div class="card-body bg-success text-white">
+                  <h1 class="card-title">About Us</h1>
+                  <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                  <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur inventore aspernatur alias adipisci nostrum veniam exercitationem, illum ut dignissimos ipsam tempore, voluptates voluptatibus corporis nihil. Ipsum quasi cupiditate dolorum doloremque doloribus! Voluptas delectus quae tempore nostrum quisquam architecto quaerat, dolore explicabo alias, aperiam laboriosam non incidunt rerum dolorem sit enim nam neque dolorum in saepe similique expedita! Vero architecto fuga quo neque repellendus, soluta, ex provident corrupti est quam ipsam nobis dicta voluptate nostrum nemo aperiam quod natus magni itaque reiciendis aliquam nesciunt magnam? Quo atque tempore amet minima adipisci in itaque reprehenderit quam officia nobis, fugiat vel numquam dicta.</p>
+                  <a href="#">Read more?</a>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+{% endblock bodycontent %}
+{% block aboutActive %}active{% endblock aboutActive %}

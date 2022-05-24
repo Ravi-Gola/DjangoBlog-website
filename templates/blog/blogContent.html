@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Blog-Content{% endblock title %}
+{% block blogActive %}active{% endblock blogActive %}
+
+{% block bodycontent %}
+{% load static %}
+{% load humanize %}
+{% load extras %}
+<div class="container ">
+  <div class="jumbotron mt-3 p-5" style="background-color: #eee9e9;">
+    <h5 style="color: blue; font-weight: bolder;">{{post.category}}</h5>
+    <h1>{{post.title}}</h1>
+    <p style="margin: 0; font-family: math; color: #b49696;">{{post.date}}</p>
+    <p class="lead">{{post.content|safe}}.</p>
+  </div>
+  <div class="commentbox">
+    <h1 class="my-3">Comments({{comments.count}})</h1>
+    <form action="/postcomment/" method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="comment" class="form-label">Post Comments</label>
+        <input type="text" class="form-control" name="comment"  placeholder="enter your comment here">
+      </div>
+      <input type="hidden" name="postsno" value="{{post.sno}}">
+      <input type="hidden" name="parentSno" value="">
+      <button type="submit" class="btn btn-dark">Post</button>
+    </form>
+    {% for comment in comments %}
+    <div class="comment my-3">
+      <h5 class="text-primary"><img class="rounded" style="height: 4%;width: 4%;margin-right: 18px;"
+          src="{%static 'user.png'%}" alt="">{{comment.user}} <span class="badge bg-secondary">{{comment.timezone|naturaltime}}</span></h5>
+      <p>{{comment.comment}}</p>
+        <button class="btn btn-success btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#reply{{comment.sno}}" aria-expanded="false" aria-controls="reply{{comment.sno}}">
+          reply <span class="badge bg-dark">{{replyDict|get_length:comment.sno}}</span>
+        </button>
+      <div class="collapse my-2" id="reply{{comment.sno}}">
+        <div class="card card-body " style="background: #f0e9e9;">
+          <form action="/postcomment/" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="comment" class="form-label">Post Reply</label>
+              <input type="text" class="form-control" name="comment"  placeholder="enter your reply here">
+            </div>
+            <input type="hidden" name="postsno" value="{{post.sno}}">
+            <input type="hidden" name="parentSno" value="{{comment.sno}}">
+            <button type="submit" class="btn btn-dark">Post</button>
+          </form>
+          <h4 class="my-3">Replies({{replyDict|get_length:comment.sno}})</h4>
+          {% for reply in replyDict|get_val:comment.sno %}
+          <h6 class="text-primary"><img class="rounded" style="height: 3%;width: 3%;margin-right: 18px;"src="{%static 'user.png'%}" alt="">{{reply.user}} <span class="badge bg-secondary">{{reply.timezone|naturaltime}}</span></h6>
+          <p>{{reply.comment}}</p>
+          {% endfor %} 
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock bodycontent %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Search Results{% endblock title %}
+{% block bodycontent %}
+{% if allPost|length < 1 %}
+<div class="container d-flex flex-column  align-items-center my-5">
+    <p>
+        <strong>Your search - </strong>{{query}} <strong>- did not match any documents.</strong><br>
+        <strong>Suggestions:</strong>
+    </p>
+    <ul>
+        <li>Make sure that all words are spelled correctly.</li>
+        <li>Try different keywords.</li>
+        <li>Try more general keywords.</li>
+    </ul>
+</div>
+{% endif %}
+{% for post in allPost  %}
+<div class="container ">
+    <h1 style="margin: 10px; text-align: center;">Search results</h1>
+    <div class="jumbotron mt-3 p-5" style="background-color: #eee9e9;">
+        <h5 style="color: blue; font-weight: bolder;">{{post.category}}</h5>
+        <h1>{{post.title}}</h1>
+        <p style="margin: 0; font-family: math; color: #b49696;">{{post.date}}</p>
+        <p class="lead">{{post.content|truncatechars:300}}.</p>
+        <a href="/{{post.slug}}">Read More</a>
+      </div>
+</div>
+{% endfor %}
+{% endblock bodycontent %}
+{% block blogActive %}active{% endblock blogActive %}

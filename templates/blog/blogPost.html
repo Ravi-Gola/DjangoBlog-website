@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Blog{% endblock title %}
+{% block bodycontent %}
+
+<div class="container ">
+    <h1 style="margin: 10px; text-align: center;">ALL BLOGS</h1>
+    {% for post in allPost  %}
+    <div class="jumbotron mt-3 p-5" style="background-color: #eee9e9;">
+        <h5 style="color: blue; font-weight: bolder;">{{post.category}}</h5>
+        <h1>{{post.title}}</h1>
+        <p style="margin: 0; font-family: math; color: #b49696;">{{post.date}}</p>
+        <p class="lead">{{post.content|truncatechars:300}}.</p>
+        <a href="/{{post.slug}}">Read More</a>
+      </div>
+    {% endfor %}
+</div>
+
+{% endblock bodycontent %}
+{% block blogActive %}active{% endblock blogActive %}
